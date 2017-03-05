@@ -1,0 +1,57 @@
+//- narbar.jade
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      a.btn.btn-navbar(data-toggle="collapse", data-target=".nav-collapse")
+        span.icon-bar
+        |  
+        | 				
+        span.icon-bar
+        |  
+        | 				
+        span.icon-bar
+      | 			
+      | 			
+      a.brand(href="./") Files Exchange
+      | 			
+      | 			
+      .nav-collapse
+        ul.nav.pull-right
+          li
+            a(href="#")
+              span.badge.badge-warning 7
+          | 					
+          | 					
+          li.divider-vertical
+          | 					
+          | 					
+          li.dropdown
+            a.dropdown-toggle(data-toggle="dropdown", href="#")
+              | Rod Howard 
+              b.caret
+            | 						
+            | 						
+            ul.dropdown-menu
+              li
+                a(href="#")
+                  i.icon-user
+                  |  Account Setting
+              | 							
+              | 							
+              li
+                a(href="#")
+                  i.icon-lock
+                  |  Change Password
+              | 							
+              | 							
+              li.divider
+              | 							
+              | 							
+              li
+                a(href="./")
+                  i.icon-off
+                  |  Logout
+      // /nav-collapse
+    // /container
+  // /navbar-inner
+// /navbar

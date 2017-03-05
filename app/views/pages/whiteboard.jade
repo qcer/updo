@@ -1,0 +1,78 @@
+extends ../layout
+block head
+  meta(charset="utf-8")
+  |     
+  title Dashboard - Bootstrap Admin
+  |   
+  meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+  |     
+  meta(name="apple-mobile-web-app-capable", content="yes")
+     
+  link(href="/components/css/bootstrap.min.css", rel="stylesheet")
+  |     
+  link(href="/components/css/bootstrap-responsive.min.css", rel="stylesheet")
+  |        
+  link(href="/components/css/font-awesome.css", rel="stylesheet")
+  |     
+  link(href="/components/css/adminia.css", rel="stylesheet")
+  |  
+  |     
+  link(href="/components/css/adminia-responsive.css", rel="stylesheet")
+  |      
+  link(href="/components/css/pages/dashboard.css", rel="stylesheet")
+
+  // dropzone css
+  link(href="/css/dropzone.css", rel="stylesheet")
+
+  // custom css
+  link(href="/css/custom.css",rel="stylesheet")
+
+  // Le HTML5 shim, for IE6-8 support of HTML5 elements
+  //if lt IE 9
+    script(src="http://html5shim.googlecode.com/svn/trunk/html5.js")
+  |    
+  meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
+block body
+  include ../navbar.jade
+  #content
+    .container
+      .row
+        include ../nav.jade
+        .span9
+          h1.page-title
+            i.icon-home
+            |           Dashboard
+          .widget-content
+            h3 表单上传
+            form#whiteboard(action="/whiteboard.html", method="post", role="form")
+              .form-group
+                textarea.form-control(type="text",name="text",rows="15", style="width:100%")
+              button.btn.btn-primary(type="submit",style="width:100%;height:35px") 提交
+          // /widget
+
+          .widget-content
+            button#refreshbtn.btn.btn-primary.btn-xs(type="button",style="float:right") 刷新
+            h3 文本内容
+            
+            #mycontent
+              each item in text
+                p #{item}
+          // /widget
+
+
+        // /span9
+      // /row
+
+    // /container
+  // /content
+  include ../gotop.jade
+  include ../footer.jade
+
+  script(src="/components/js/jquery-1.7.2.min.js")
+  script(src="/components/js/bootstrap.js")
+  script(src="/js/dropzone.min.js")
+  script(src="/js/custom.js")
+
+
+
+

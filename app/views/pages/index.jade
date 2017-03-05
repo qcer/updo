@@ -1,0 +1,153 @@
+extends ../layout
+block head
+  meta(charset="utf-8")
+  |     
+  title Dashboard - Bootstrap Admin
+  |   
+  meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+  |     
+  meta(name="apple-mobile-web-app-capable", content="yes")
+     
+  link(href="/components/css/bootstrap.min.css", rel="stylesheet")
+  link(href="/components/css/bootstrap-responsive.min.css", rel="stylesheet")
+  |        
+  link(href="/components/css/font-awesome.css", rel="stylesheet")
+  |     
+  link(href="/components/css/adminia.css", rel="stylesheet")
+  |  
+  |     
+  link(href="/components/css/adminia-responsive.css", rel="stylesheet")
+  |      
+  link(href="/components/css/pages/dashboard.css", rel="stylesheet")
+
+  // dropzone css
+  link(href="/css/dropzone.css", rel="stylesheet")
+
+  // custom css
+  link(href="/css/custom.css",rel="stylesheet")
+
+
+  // Le HTML5 shim, for IE6-8 support of HTML5 elements
+  //if lt IE 9
+    script(src="http://html5shim.googlecode.com/svn/trunk/html5.js")
+  |    
+  meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
+block body
+  include ../navbar.jade
+  #content
+    .container
+      .row
+        include ../nav.jade
+        .span9
+          h1.page-title
+            i.icon-home
+            |           Dashboard
+          |         
+          |         
+          .stat-container
+            .stat-holder
+              .stat
+                span 564
+                |               Completed Sales
+              // /stat
+            // /stat-holder
+            .stat-holder
+              .stat
+                span 423
+                |               Pending Sales
+              // /stat
+            // /stat-holder
+            .stat-holder
+              .stat
+                span 96
+                |               Returned Sales
+              // /stat
+            // /stat-holder
+            .stat-holder
+              .stat
+                span 2
+                |               Chargebacks
+              // /stat
+            // /stat-holder
+          // /stat-container
+          .widget-content
+            h3 所有文件列表
+            |           
+            table.table.table-striped.table-bordered.table-hover.definewidth.m10
+              thead
+                tr
+                  th ID
+                  |                   
+                  th 文件名
+                  |                   
+                  th 文件大小(Byte)
+                  |                   
+                  th 最近操作时间
+                  |                   
+                  th 删除管理
+                  |                   
+                  th 下载管理
+              each item,index in file_info                   
+                tr
+                  td #{index+1}
+                  |                         
+                  td #{item.file_name}
+                  |                         
+                  td #{item.file_size}
+                  |                         
+                  td #{item.file_latest_ch}
+                  |                         
+                  td
+                    a(href="/delete.html?file_name=#{item.file_name}") 点击删除
+                  |                         
+                  td
+                    a(href="/download?file_name=#{item.file_name}") 下载下载
+          // /widget
+
+          .widget-content
+            h3 表单上传
+            form#foo(action="/upload.html", method="post",enctype='multipart/form-data')
+              ul
+                li
+                  input(type="file", name="file",multiple='mutiple')  
+                li  
+                  input(type="submit",value="提交")
+          // /widget
+
+          .widget-content
+            h3 拖拽上传
+            #dropz.dropzone
+          // /widget
+
+        // /span9
+      // /row
+
+    // /container
+  // /content
+
+  include ../gotop.jade
+  include ../footer.jade
+
+  script(src="/components/js/jquery-1.7.2.min.js")
+  script(src="/components/js/bootstrap.js")
+  script(src="/js/dropzone.min.js")
+  script(src="/js/custom.js")
+
+
+  script(type="text/javascript").
+    $(function () {
+    // body...
+      Dropzone.autoDiscover = false;
+      $("#dropz").dropzone({  
+        url: "/upload.html",
+        axFilesize: 100,
+        paramName: "file",
+        maxThumbnailFilesize: 5,
+        init: function() {      
+            this.on('success', function() {       
+              console.log("ok");
+            });
+        }
+       });
+    });
+
