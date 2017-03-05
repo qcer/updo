@@ -4,7 +4,7 @@
 Show:
 
 one:
-![展示](https://github.com/qcer/updo/public/images/md_001.png)
+![展示](https://github.com/qcer/updo/raw/master/public/images/md_001.png)
 
 two:
-![展示](https://github.com/qcer/updo/public/images/md_002.png)
+![展示](https://github.com/qcer/updo/raw/master/public/images/md_002.png)
