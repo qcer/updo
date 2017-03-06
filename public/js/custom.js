@@ -11,6 +11,18 @@ $(function () {
 	  });
 	});
 
+	$("#addrow").click(function (argument) {
+		// body...ta_wb
+		var $tawb = $("#tawb");
+		var rows_count = $tawb.attr("rows");
+		var tmp = Number(rows_count);
+		if (tmp < 40) {
+			rows_count = (Number(rows_count)+5).toString();
+			$tawb.attr({rows: rows_count});
+			console.log(rows_count);
+		}
+	})
+
 
 
 	$("#main-nav li").each(function(){ 
@@ -19,9 +31,6 @@ $(function () {
 			$(this).siblings('li').removeClass('active');  // 删除其他兄弟元素的样式
 			$(this).addClass('active');
 		}
-		// console.log($(this).find("a")[0].href);
-		// console.log(window.location);
-		// console.log(window.location.href);
 	}); 
 
 	$(window).scroll(function() {
@@ -30,8 +39,16 @@ $(function () {
 	       else
 	           $('div.go-top').hide();
 	});
-   $('div.go-top').click(function() {
-       $('html, body').animate({scrollTop: 0}, 10);
-   });
+	$(".go-top").hover(function () {
+		// body...
+		$(this).css('background-color', '#ffaeb9');
+	},function () {
+		// body...
+		$(this).css('background-color', '#eddec2');
+	});
+
+	$('div.go-top').click(function() {
+	   $('html, body').animate({scrollTop: 0}, 10);
+	});
 
 })
