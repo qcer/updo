@@ -134,20 +134,3 @@ block body
   script(src="/js/custom.js")
 
 
-  script(type="text/javascript").
-    $(function () {
-    // body...
-      Dropzone.autoDiscover = false;
-      $("#dropz").dropzone({  
-        url: "/upload.html",
-        axFilesize: 100,
-        paramName: "file",
-        maxThumbnailFilesize: 5,
-        init: function() {      
-            this.on('success', function() {       
-              console.log("ok");
-            });
-        }
-       });
-    });
-

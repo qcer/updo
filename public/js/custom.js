@@ -12,7 +12,7 @@ $(function () {
 	});
 
 	$("#addrow").click(function (argument) {
-		// body...ta_wb
+		// body...
 		var $tawb = $("#tawb");
 		var rows_count = $tawb.attr("rows");
 		var tmp = Number(rows_count);
@@ -22,7 +22,6 @@ $(function () {
 			console.log(rows_count);
 		}
 	})
-
 
 
 	$("#main-nav li").each(function(){ 
@@ -50,5 +49,25 @@ $(function () {
 	$('div.go-top').click(function() {
 	   $('html, body').animate({scrollTop: 0}, 10);
 	});
+
+
+	// dropzone
+	Dropzone.autoDiscover = false;
+	var myDropzone = new Dropzone("div#dropz",{  
+	  url: "/upload.html",
+	  maxFilesize: 100,
+	  paramName: "file",
+	  maxThumbnailFilesize: 5,
+	  createImageThumbnails: "../images/agree_ok.png",
+	  init: function() {      
+	      this.on('success', function() {       
+	      });
+	  }
+	 });
+	// myDropzone.on("uploadprogress",function (argument,progress) {
+	// 	// body...
+	// 	console.log(progress);
+	// });
+
 
 })

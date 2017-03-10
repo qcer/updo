@@ -19,12 +19,20 @@ function get_fileinfo(file_path) {
 	file_count = file_ary.length;
 	for (var i = 0; i < file_count; i++) {
 		ele_info = fs.statSync(file_path+file_ary[i]);
+		console.log(ele_info.ctime.toLocaleString());
+		console.log(ele_info.ctime.valueOf());
+
 		file_info[i] = {
+			valueof: ele_info.ctime.valueOf(),
 			file_name: file_ary[i],
 			file_size: ele_info.size,
-			file_latest_ch: ele_info.ctime.toString()
+			file_latest_ch: ele_info.ctime.toLocaleString()
 		};
 	}
+	file_info.sort(function (v1,v2) {
+		// body...
+		return v2.valueof - v1.valueof;
+	});
 }
 
 router.get('/',function (req, res, next) {
