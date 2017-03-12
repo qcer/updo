@@ -7,10 +7,20 @@ module.exports = function (app) {
 };
 
 
-router.get('/download', function (req, res, next) {
+router.get('/download.html', function (req, res, next) {
 	var query_param = req.query;
+	console.log(query_param);
 	if(query_param != undefined){
-		console.log(query_param.file_name);
 		res.download('freedom/upload/'+query_param.file_name);
+	}
+});
+
+
+
+router.post('/download.html', function (req, res) {
+	var query_param = req.body.file_name;
+	console.log(query_param);
+	if(query_param != undefined){
+		res.download('freedom/upload/'+query_param);
 	}
 });

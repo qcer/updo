@@ -41,7 +41,7 @@ router.get('/',function (req, res, next) {
 
 });
 
-router.get('/index',function (req, res, next) {
+router.get(/^\/index$/,function (req, res, next) {
 	// body...
 	res.redirect('/index.html');
 });
@@ -50,6 +50,12 @@ router.get('/index',function (req, res, next) {
 router.get('/index.html', function (req, res, next) {
 	get_fileinfo(file_path);
 	res.render('pages/index', {
-		file_info: file_info
+		file_info: JSON.stringify(file_info)
 	});
 });
+
+router.post('/index.html',function (req, res) {
+	// body...
+	get_fileinfo(file_path);
+	res.send(file_info);
+})

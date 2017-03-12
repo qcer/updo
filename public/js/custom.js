@@ -19,7 +19,7 @@ $(function () {
 		if (tmp < 40) {
 			rows_count = (Number(rows_count)+5).toString();
 			$tawb.attr({rows: rows_count});
-			console.log(rows_count);
+			// console.log(rows_count);
 		}
 	})
 
@@ -50,24 +50,51 @@ $(function () {
 	   $('html, body').animate({scrollTop: 0}, 10);
 	});
 
-
-	// dropzone
-	Dropzone.autoDiscover = false;
-	var myDropzone = new Dropzone("div#dropz",{  
-	  url: "/upload.html",
-	  maxFilesize: 100,
-	  paramName: "file",
-	  maxThumbnailFilesize: 5,
-	  createImageThumbnails: "../images/agree_ok.png",
-	  init: function() {      
-	      this.on('success', function() {       
+	//f方案一，借助表单插件
+	mySubmit = function () {
+	  // body...
+	  var options = {
+	    url:'/whiteboard.html',
+	    type:'post',
+	    success: function (data) {
+	      // body...
+	      var html_content = "";
+	      data.forEach(function (ele) {
+	        // body...
+	        html_content += `<p>${ele}</p>`;
 	      });
-	  }
-	 });
-	// myDropzone.on("uploadprogress",function (argument,progress) {
+	      $("#mycontent").html(html_content);
+	    }
+	  };
+	  $("#whiteboard").ajaxSubmit(options);
+	  // $("#whiteboard").submit();
+	}
+
+	// 方案二:
+	// testSubmit = function () {
 	// 	// body...
-	// 	console.log(progress);
-	// });
+	// 	$("#whiteboard").submit(function () {
+	// 		// body...
+	// 		console.log("testSubmit");
+	// 		console.log($(this).serialize());
+	// 		var options = {
+	// 			url:'/whiteboard.html',
+	// 			type:"post",
+	// 			data:$(this).serialize(),
+	// 			success:function (data) {
+	// 				// body...
+	// 				    var html_content = "";
+	// 				    data.forEach(function (ele) {
+	// 				      // body...
+	// 				      html_content += `<p>${ele}</p>`;
+	// 				    });
+	// 				    $("#mycontent").html(html_content);
+	// 			}
+
+	// 		}
+	// 		$.ajax(options);
+	// 	});
+	// }
 
 
 })

@@ -30,12 +30,16 @@ router.get('/whiteboard_ajax.html', function (req, res, next) {
 });
 
 
+router.post('/whiteboard.html', function (req, res) {
+	fs.writeFileSync("./freedom/hidden/whiteboard.txt", req.body.text, 'utf8');
+	get_text();
+	res.send(text); //text为数组,后台只负责传输数据
+});
+
+
 
 router.post('/whiteboard.html',function (req, res) {
 	// body...
-	console.log(req.body.text);
-	console.log(req.body);
-
 	fs.writeFileSync("./freedom/hidden/whiteboard.txt", req.body.text, 'utf8');
 	res.redirect('/whiteboard.html');
 });

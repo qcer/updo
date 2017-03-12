@@ -87,18 +87,22 @@ block body
                   th 删除管理
                   |                   
                   th 下载管理
-              tbody(id="filelist_tr")                  
-                tr(v-for="(item, index) in fileslist")
-                  td {{index+1}}
-                  td {{item.file_name}}
-                  td {{item.file_size}}
-                  td {{item.file_latest_ch}}
-                  td 
-                    a(href="javascript:void(0)" v-on:click="fileDelete(item.file_name)") 点击删除
-                  td 
-                    // a(:href=`/download.html?file_name=${item.file_name}`) 点击下载
-                    a(href="javascript:void(0)" v-on:click="fileDownload(item.file_name)") 点击下载
-
+              tbody
+                each item,index in file_info                   
+                  tr
+                    td #{index+1}
+                    |                         
+                    td #{item.file_name}
+                    |                         
+                    td #{item.file_size}
+                    |                         
+                    td #{item.file_latest_ch}
+                    |                         
+                    td
+                      a(href="javascript:void(0)" @click="selectDate('item.file_name')") 点击删除
+                    |                         
+                    td
+                      a(:href="item.file_name") 点击下载
           // /widget
 
           .widget-content
@@ -116,7 +120,6 @@ block body
             #dropz.dropzone
           // /widget
 
-
         // /span9
       // /row
 
@@ -133,57 +136,5 @@ block body
 
   // custom.js 
   script(src="/js/custom.js")
-
-  script.
-    $(function(){
-      console.log(!{file_info}[0]);
-      var myvue = new Vue({
-        el: '#filelist_tr',
-        data:{
-          fileslist:!{file_info}
-        },
-        methods: {
-          fileDelete:function (file_name) {
-            // body...
-            $.post('/delete.html',{file_name:file_name},function (fileslist) {
-              // body...
-              console.log(fileslist);
-              myvue.fileslist = fileslist;
-            })
-
-          },
-          fileDownload:function (file_name) {
-            // body...
-            location.href=`/download.html?file_name=${file_name}`;
-          }
-        }
-      });
-
-      // dropzone
-      Dropzone.autoDiscover = false;
-      var myDropzone = new Dropzone("div#dropz",{
-        url: "/upload.html",
-        maxFilesize: 100,
-        paramName: "file",
-        maxThumbnailFilesize: 5,
-        init: function() {      
-            this.on('success', function() {
-              $.post('/index.html',{},function (fileslist) {
-                // body...
-                console.log(fileslist);
-                myvue.fileslist = fileslist;
-
-
-              })
-            });
-        }
-      })
-    })
-
-
-
-
-
-
 
 
