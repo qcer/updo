@@ -38,6 +38,7 @@ $(function () {
 	       else
 	           $('div.go-top').hide();
 	});
+	
 	$(".go-top").hover(function () {
 		// body...
 		$(this).css('background-color', '#ffaeb9');
