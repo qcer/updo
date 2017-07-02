@@ -71,8 +71,8 @@ block body
             // /stat-holder
           // /stat-container
           .widget-content
+            button#deleteall.btn.btn-primary.btn-xs(type="button",style="float:right") 删除所有
             h3 所有文件列表
-            |           
             table.table.table-striped.table-bordered.table-hover.definewidth.m10
               thead
                 tr
@@ -94,10 +94,10 @@ block body
                   td {{item.file_size}}
                   td {{item.file_latest_ch}}
                   td 
-                    a(href="javascript:void(0)" v-on:click="fileDelete(item.file_name)") 点击删除
+                    a(href="javascript:void(0)" v-on:click="deleteFile(item.file_name)") 点击删除
                   td 
                     // a(:href=`/download.html?file_name=${item.file_name}`) 点击下载
-                    a(href="javascript:void(0)" v-on:click="fileDownload(item.file_name)") 点击下载
+                    a(href="javascript:void(0)" v-on:click="downloadFile(item.file_name)") 点击下载
 
           // /widget
 
@@ -136,28 +136,41 @@ block body
 
   script.
     $(function(){
-      console.log(!{file_info}[0]);
       var myvue = new Vue({
         el: '#filelist_tr',
         data:{
           fileslist:!{file_info}
         },
         methods: {
-          fileDelete:function (file_name) {
+          deleteFile:function (file_name) {
             // body...
             $.post('/delete.html',{file_name:file_name},function (fileslist) {
               // body...
-              console.log(fileslist);
               myvue.fileslist = fileslist;
             })
 
           },
-          fileDownload:function (file_name) {
+          downloadFile:function (file_name) {
             // body...
             location.href=`/download.html?file_name=${file_name}`;
           }
         }
       });
+      document.getElementById('deleteall').onclick = function(){
+        var xmlhr = new XMLHttpRequest();
+        var url = '/deleteall.html';
+
+        xmlhr.onreadystatechange = function(){
+          if(xmlhr.readyState == 4 && xmlhr.status == 200){
+            myvue.fileslist = [];
+            console.log(myvue.fileslist);
+          }
+        }
+        if(xmlhr){
+          xmlhr.open('POST',url,true);
+          xmlhr.send("deleteall");
+        }
+      };
 
       // dropzone
       Dropzone.autoDiscover = false;

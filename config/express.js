@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
 
+const MAXAGE = 10*60; //以秒计算
+
 module.exports = function(app, config) {
   var env = process.env.NODE_ENV || 'development';
   app.locals.ENV = env;
@@ -24,7 +26,19 @@ module.exports = function(app, config) {
   }));
   app.use(cookieParser());
   app.use(compress());
-  app.use(express.static(config.root + '/public'));
+
+  var staticOpts = {
+    // maxAge:120*1000,
+    setHeaders:function (res,path) {
+      // body...
+      var expires = new Date;
+      expires.setTime(expires.getTime()+MAXAGE*1000);
+      res.setHeader('Cache-Control', `max-age=${MAXAGE}`);
+      res.setHeader('Expires', expires.toGMTString());
+    },
+  };
+
+  app.use(express.static(config.root + '/public',staticOpts));
   app.use(express.static(config.root + '/freedom'));
 
   app.use(methodOverride());

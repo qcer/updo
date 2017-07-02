@@ -3,39 +3,35 @@ var express = require('express'),
   fs = require('fs'),
   bodyParser = require('body-parser'),
   multiparty = require('multiparty'),
-  util = require('util'),
-  db = require('../models');
+  util = require('util');
 
 module.exports = function (app) {
   app.use('/', router);
 };
 
-var text = "";
-function get_text() {
+
+function getText() {
 	// body...
-	text = fs.readFileSync("./freedom/hidden/whiteboard.txt").toString().split(/\r\n/);
+	return fs.readFileSync("./freedom/hidden/whiteboard.txt").toString().split(/\r\n/);
 }
 
 router.get('/whiteboard.html', function (req, res, next) {
-	get_text();
+	var text = getText();
 	res.render('pages/whiteboard',{
-		text: text
+		text: text,
 	});
 });
 
 
 router.get('/whiteboard_ajax.html', function (req, res, next) {
-	get_text();
-	res.send(text); //text为数组,后台只负责传输数据
+	res.send(getText()); //text为数组,后台只负责传输数据
 });
 
 
 router.post('/whiteboard.html', function (req, res) {
 	fs.writeFileSync("./freedom/hidden/whiteboard.txt", req.body.text, 'utf8');
-	get_text();
-	res.send(text); //text为数组,后台只负责传输数据
+	res.send(getText()); //text为数组,后台只负责传输数据
 });
-
 
 
 router.post('/whiteboard.html',function (req, res) {

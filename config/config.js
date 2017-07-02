@@ -9,7 +9,7 @@ var config = {
       name: 'updo'
     },
     port: process.env.PORT || 8421,
-    db: 'mysql://root:root@localhost/test'
+    // db: 'mysql://root:root@localhost/test'
   },
 
   test: {
@@ -18,7 +18,7 @@ var config = {
       name: 'updo'
     },
     port: process.env.PORT || 3000,
-    db: 'mysql://localhost/updo-test'
+    // db: 'mysql://localhost/updo-test'
   },
 
   production: {
@@ -27,7 +27,7 @@ var config = {
       name: 'updo'
     },
     port: process.env.PORT || 3000,
-    db: 'mysql://localhost/updo-production'
+    // db: 'mysql://localhost/updo-production'
   }
 };
 
